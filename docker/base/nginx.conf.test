@@ -1,0 +1,67 @@
+server {
+    listen 443 ssl;
+    server_name miniprogram.${DOMAIN_SUFFIX};
+    # gzip config
+    gzip on;
+    gzip_min_length 1k;
+    gzip_comp_level 9;
+    gzip_types text/plain text/css text/javascript application/json application/javascript application/x-javascript application/xml;
+    gzip_vary on;
+    gzip_disable "MSIE [1-6]\.";
+
+
+    ssl_certificate  /etc/nginx/cert/miniprogram.${DOMAIN_SUFFIX}_nginx/miniprogram.${DOMAIN_SUFFIX}_bundle.pem;
+    ssl_certificate_key  /etc/nginx/cert/miniprogram.${DOMAIN_SUFFIX}_nginx/miniprogram.${DOMAIN_SUFFIX}.key;
+    ssl_session_timeout 5m;
+    ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+    ssl_prefer_server_ciphers on;
+
+
+#    location / {
+#        root /usr/share/nginx/html;
+#        index index.html index.htm;
+#    }
+
+    location /PCkFQBOqUD.txt {
+        root /usr/share/nginx/html;
+        try_files $uri =404;
+    }
+
+    location / {
+        proxy_pass http://h5_front_server;
+        proxy_set_header   Host              $http_host;
+        proxy_set_header   X-Forwarded-Proto $scheme;
+        proxy_set_header   X-Real-IP         $remote_addr;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+    }
+
+    location /v1/scheduled {
+        proxy_pass http://scheduled_api_server;
+        proxy_set_header   Host              $http_host;
+        proxy_set_header   X-Forwarded-Proto $scheme;
+        proxy_set_header   X-Real-IP         $remote_addr;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+    }
+
+    location /v1/h5 {
+        proxy_pass http://h5_api_server;
+        proxy_set_header   Host              $http_host;
+        proxy_set_header   X-Forwarded-Proto $scheme;
+        proxy_set_header   X-Real-IP         $remote_addr;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+    }
+
+    location /v1/miniprogram {
+        proxy_pass http://miniprogram_api_server;
+        proxy_set_header   Host              $http_host;
+        proxy_set_header   X-Forwarded-Proto $scheme;
+        proxy_set_header   X-Real-IP         $remote_addr;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+    }
+
+}

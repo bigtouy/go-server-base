@@ -1,0 +1,23 @@
+# 使用Node.js官方镜像作为基础镜像
+FROM node:18-alpine
+
+# 设置工作目录
+WORKDIR /app
+
+# 复制package.json和package-lock.json到工作目录
+COPY package.json package-lock.json ./
+
+# 安装项目依赖
+RUN npm install
+
+# 复制所有项目文件到工作目录
+COPY . .
+
+# 构建Next.js应用
+RUN npm run build
+
+# 公开端口（Next.js默认端口是3000）
+EXPOSE 3000
+
+# 启动Next.js应用
+CMD ["npm", "start"]

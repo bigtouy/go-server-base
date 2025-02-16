@@ -1,0 +1,14 @@
+version: '3.5'
+
+services:
+  manage-front:
+    ports:
+      - 18001:8000
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile.dev
+    container_name: 'bigtouy-manage-front'
+    volumes:
+      - ../src:/usr/src/app/src
+      - ../config:/usr/src/app/config
+      - ../mock:/usr/src/app/mock

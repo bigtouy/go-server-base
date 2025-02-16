@@ -1,0 +1,16 @@
+version: '3.5'
+
+services:
+  go-server-base:
+    image: go-server-base:latest
+    privileged: true
+    container_name: go-server-base # 容器名
+    restart: always
+    ports:
+      - ${SERVER_PORT:-9001}:9001
+    #    environment:
+
+    volumes:
+      - ${WORKSPACE:-/workspace/go-server-base}/logs:/workspace/go-server-base/logs
+#      - ${WORKSPACE:-/workspace}/${NAMESPACE:-recog-backend}/ava_workspace/db/recog-backend/db:/app/db
+    command: ./go-server-base
