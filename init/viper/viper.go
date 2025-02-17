@@ -41,7 +41,10 @@ func Init() {
 		panic(err)
 	}
 	global.CONF = serverConfig
+	global.CONF.System.DataDir = path.Join(global.CONF.System.BaseDir, global.CONF.App.Name)
 	global.CONF.Log.LogPath = path.Join(global.CONF.System.BaseDir, global.CONF.App.Name, global.CONF.Log.LogPath)
 	global.CONF.Sqlite.DbPath = path.Join(global.CONF.System.BaseDir, global.CONF.App.Name, global.CONF.Sqlite.DbPath)
 	global.Viper = v
+	global.CONF.System.Cache = global.CONF.System.DataDir + "/cache"
+
 }

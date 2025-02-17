@@ -1,6 +1,7 @@
 package cache
 
 import (
+	"fmt"
 	"time"
 
 	"go-server-base/global"
@@ -48,6 +49,7 @@ func Init() {
 
 	cache, err := badger.Open(options)
 	if err != nil {
+		fmt.Println(err)
 		panic(err)
 	}
 
