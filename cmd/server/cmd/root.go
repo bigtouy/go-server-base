@@ -9,8 +9,8 @@ import (
 func init() {}
 
 var RootCmd = &cobra.Command{
-	Use:   "Rag",
-	Short: "Rag，通义点金",
+	Use:   "Server",
+	Short: "go-server-base",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		server.Start()
 		return nil

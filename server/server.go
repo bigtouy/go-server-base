@@ -1,10 +1,16 @@
 package server
 
 import (
-	"github.com/gin-gonic/gin"
+	"encoding/gob"
+	"go-server-base/init/cache"
 	"go-server-base/init/log"
 	"go-server-base/init/router"
+	"go-server-base/init/session"
+	"go-server-base/init/session/psession"
+	"go-server-base/init/validator"
 	"go-server-base/init/viper"
+
+	"github.com/gin-gonic/gin"
 )
 
 func Start() {
@@ -13,6 +19,10 @@ func Start() {
 	log.Init()
 	//db.Init()
 	//migration.Init()
+	validator.Init()
+	gob.Register(psession.SessionUser{})
+	cache.Init()
+	session.Init()
 	gin.SetMode("debug")
 
 	rootRouter := router.Routers()

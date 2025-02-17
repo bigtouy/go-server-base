@@ -3,5 +3,6 @@ package service
 import "go-server-base/app/repo"
 
 var (
-	cacheRepo = repo.NewICacheRepo()
+	cacheRepo   = repo.NewICacheRepo()
+	settingRepo = repo.NewISettingRepo()
 )
