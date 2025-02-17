@@ -1,0 +1,31 @@
+system:
+  base_dir: /Users/pengjiale/workspace
+
+app:
+  name: go-server-base
+  version: 1.0.0
+
+sqlite:
+  db_path: /db
+  db_name: cache.db
+
+log:
+  log_path: /logs
+  level: debug
+  time_zone: Asia/Shanghai
+  log_name: app
+  log_suffix: .log
+  max_backup: 10
+
+oss:
+  region: cn-shanghai
+  endpoint: http://oss-cn-shanghai.aliyuncs.com
+  access_key_id: key
+  access_key_secret: secret
+  bucket_name: jizhi-video-recog
+
+qwen:
+  region: cn-shanghai
+  nls_app_key: key
+  api_key: key
+  workspace_id: id

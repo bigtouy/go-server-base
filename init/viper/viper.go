@@ -1,61 +1,39 @@
 package viper
 
 import (
-	"bytes"
 	"fmt"
-	"github.com/spf13/viper"
-	"go-server-base/cmd/server/conf"
 	"go-server-base/configs"
 	"go-server-base/global"
-	"gopkg.in/yaml.v3"
 	"os"
 	"path"
+
+	"github.com/spf13/viper"
 )
 
 func Init() {
 	v := viper.NewWithOptions()
-
-	//v.AddConfigPath(path.Join("/opt/go-server-base/conf")) // search config in the working directory
-	//v.SetConfigName("app")                                      // name of config file (without extension)
-	v.SetConfigType("yaml")
-	config := configs.ServerConfig{}
 	// 从环境变量获取配置文件名
 	mode := os.Getenv("MODE")
+	fmt.Println("MODE:", mode)
 
-	var configYaml []byte
+	var configName = "app."
 
 	switch mode {
 	case "dev":
-		configYaml = conf.AppDevYaml
+		configName = configName + "dev"
 	case "prod":
-		configYaml = conf.AppProdYaml
+		configName = configName + "prod"
 	default:
-		configYaml = conf.AppDevYaml
+		configName = configName + "prod"
 	}
 
-	if err := yaml.Unmarshal(configYaml, &config); err != nil {
-		panic(err)
-	}
-	v.SetConfigName("config")
-
-	// 获取当前工作目录
-	p, err := os.Getwd()
-	if err != nil {
-		fmt.Println("无法获取当前路径:", err)
-		return
-	}
+	v.SetConfigName(configName)
+	v.SetConfigType("yaml")
 	v.AddConfigPath(".")
 
-	// 打印当前路径
-	fmt.Println("当前路径:", p)
 	// 读取配置文件
 	if err := v.ReadInConfig(); err != nil {
-		panic(fmt.Errorf("Fatal error config file: %w \n", err))
-	}
-
-	reader := bytes.NewReader(configYaml)
-	if err := v.ReadConfig(reader); err != nil {
-		panic(fmt.Errorf("Fatal error config file: %s \n", err))
+		panic(fmt.Errorf("fatal error config file: %w ", err))
 	}
 
 	serverConfig := configs.ServerConfig{}

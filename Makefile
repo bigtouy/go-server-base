@@ -16,6 +16,9 @@ imageName = ${APP_NAME}:${tagName}
 
 xBuilderName=${APP_NAME}_xbuilder
 
+run_dev:
+	MODE=dev go run ${MAIN}
+
 run:
 	go run ${MAIN}
 

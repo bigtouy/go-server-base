@@ -1,5 +1,5 @@
 system:
-  base_dir: /workspace
+  base_dir: /Users/pengjiale/workspace
 
 app:
   name: go-server-base
