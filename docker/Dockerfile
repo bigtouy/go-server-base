@@ -35,6 +35,7 @@ ENV MODE="prod"
 
 # 复制二进制文件到镜像
 COPY --from=builder /app/go-server-base .
+COPY --from=builder /app/app.prod.yaml .
 
 EXPOSE 8080
 

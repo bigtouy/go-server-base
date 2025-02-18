@@ -41,15 +41,15 @@ gobuild:
 	$(GOBUILD) -o $(BUILD_PATH)/$(APP_NAME) $(MAIN)
 
 dockerbuild:
-		docker buildx create --name ${xBuilderName} --driver docker-container
-		docker buildx use ${xBuilderName}
-		docker buildx ls
-	  docker buildx build --load --platform linux/amd64 -t ${imageName} -f ./docker/Dockerfile .
-		docker buildx rm ${xBuilderName}
-		docker save ${imageName} -o ${tarName}
+	docker buildx create --name ${xBuilderName} --driver docker-container
+	docker buildx use ${xBuilderName}
+	docker buildx ls
+	docker buildx build --load --platform linux/amd64 -t ${imageName} -f ./docker/Dockerfile .
+	docker buildx rm ${xBuilderName}
+	docker save ${imageName} -o ${tarName}
 
 dockerremove:
-		docker buildx rm ${xBuilderName}
+	docker buildx rm ${xBuilderName}
 
 dockersave:
-		docker save ${imageName} -o ${tarName}
+	docker save ${imageName} -o ${tarName}

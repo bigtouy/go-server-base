@@ -2,12 +2,11 @@ package cache
 
 import (
 	"fmt"
+	"github.com/dgraph-io/badger/v3"
 	"time"
 
 	"go-server-base/global"
 	"go-server-base/init/cache/badger_db"
-
-	"github.com/dgraph-io/badger/v3"
 )
 
 func Init() {
